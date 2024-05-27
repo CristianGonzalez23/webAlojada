@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Producto</h2>
+      <div class="card" *ngIf="productoActual">
+        <div class="card-body">
+          <p class="card-text"><strong>Descripción:</strong> {{ productoActual.descripcion }}</p>
+          <p class="card-text"><strong>Precio:</strong> {{ productoActual.precio }}</p>
+          <p class="card-text"><strong>Estado:</strong> {{ productoActual.estado }}</p>
+          <div class="form-group">
+            <label for="motivo">Motivo:</label>
+            <textarea class="form-control" id="motivo" rows="3" [(ngModel)]="motivo"></textarea>
+          </div>
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-success" (click)="aprobarProducto()">Aprobar</button>
+            <button class="btn btn-danger" (click)="noAprobarProducto()">No Aprobar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h2>Imágenes</h2>
+      <div class="image-container">
+        <div *ngIf="productoActual">
+          <img class="img-fluid rounded" *ngFor="let imagen of productoActual.productoGetDTO.imagenes"
+            [src]="imagen" [alt]="productoActual.descripcion"
+            [ngClass]="{ 'active': imagenActual === productoActual.productoGetDTO.imagenes.indexOf(imagen) + 1 }">
+        </div>
+      </div>
+      <div class="arrow-container">
+        <button class="arrow arrow-left" (click)="mostrarProductoAnterior()">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="arrow arrow-right" (click)="mostrarProductoSiguiente()">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

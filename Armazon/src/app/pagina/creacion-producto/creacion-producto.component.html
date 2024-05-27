@@ -1,0 +1,116 @@
+<div class="card p-5">
+    <form #f="ngForm">
+        <div class="mb-3">
+            <label>Nombre:</label>
+            <input #nombre="ngModel" class="form-control" [ngClass]="
+          nombre.invalid && (nombre.dirty || nombre.touched) ? 'is-invalid' : ''
+        " type="text" name="nombre" [(ngModel)]="producto.productoDTO.nombre" required />
+        </div>
+        <div class="mb-3">
+            <label>Descripción:</label>
+            <textarea #descripcion="ngModel" class="form-control" [ngClass]="
+          descripcion.invalid && (descripcion.dirty || descripcion.touched)
+            ? 'is-invalid'
+            : ''
+        " name="descripcion" [(ngModel)]="producto.descripcion" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label>Precio:</label>
+            <input #precio="ngModel" class="form-control" [ngClass]="
+          precio.invalid && (precio.dirty || precio.touched) ? 'is-invalid' : ''
+        " type="number" name="precio" [(ngModel)]="producto.precio" required />
+        </div>
+        <div class="mb-3">
+            <label>Unidades:</label>
+            <input #unidades="ngModel" class="form-control" [ngClass]="
+          unidades.invalid && (unidades.dirty || unidades.touched)
+            ? 'is-invalid'
+            : ''
+        " type="number" name="unidades" [(ngModel)]="producto.disponibilidad" required />
+        </div>
+        <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">Imagen:</label>
+            <div class="col-sm-7">
+                <input type="file" class="form-control" name="imagenes" (change)="onFileChange($event)" multiple />
+            </div>
+            <div class="col-sm-3">
+                <button type="submit" [disabled]="archivos == null" class="btn btn-primary" (click)="subirImagenes()">
+                    <i class="fa-solid fa-cloud-arrow-up me-2"></i>Subir imágenes
+                </button>
+            </div>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label>Categoría:</label>
+            <select #categoria="ngModel" class="form-control" [ngClass]="
+          categoria.invalid && (categoria.dirty || categoria.touched)
+            ? 'is-invalid'
+            : ''
+        " name="categoria" [(ngModel)]="producto.productoDTO.categorias" required>
+                <option value="" selected>Seleccione una categoría</option>
+                <option [value]="item" *ngFor="let item of categorias">{{item}}</option>
+                <option *ngFor="let item of categorias" [value]="item">
+                    {{ item }}
+                </option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+
+            <button class="btn btn-primary" (click)="agregarCategoria()">
+                Agregar Categoria
+            </button>
+        </div>
+        <div>
+            <ul>
+                <li *ngFor="let categoria of categoriasSeleccionadas">
+                    {{ categoria }}
+                    <div style="margin-bottom: 10px;">
+                        <button class="btn btn-danger" (click)="eliminarCategoria(categoria)">
+                            <i class="fa-solid fa-trash fa-lg"></i> Eliminar Seleccion
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div style="margin-bottom: 10px;">
+
+            <label>Ciudad:</label>
+            <select #ciudad="ngModel" class="form-control" [ngClass]="
+          ciudad.invalid && (ciudad.dirty || ciudad.touched) ? 'is-invalid' : ''
+        " name="ciudad" [(ngModel)]="producto.productoDTO.ciudades" required>
+                <option value="" selected>Seleccione una ciudad</option>
+                <option [value]="item" *ngFor="let item of ciudades">{{ item }}</option>
+            </select>
+
+        </div>
+        <div style="margin-bottom: 10px;">
+            <button class="btn btn-primary" (click)="agregarCiudad()">Agregar Ciudad</button>
+        </div>
+        <div style="margin-bottom: 10px;">
+
+            <ul>
+                <li *ngFor="let ciudad of ciudadesSeleccionadas">
+                    {{ ciudad }}
+
+                    <div style="margin-bottom: 10px;">
+                        <button class="btn btn-danger" (click)="eliminarCiudad(ciudad)">
+                            <i class="fa-solid fa-trash fa-lg"></i> Eliminar Seleccion
+                        </button>
+                    </div>
+
+
+                </li>
+
+            </ul>
+        </div>
+        <div>
+        </div>
+        <button *ngIf="!esEdicion" [disabled]="f.invalid" class="btn btn-primary" (click)="crearProducto()">
+            <i class="fa-solid fa-circle-plus me-1"></i> Crear Producto
+          </button>
+        <!-- boton solo para editar -->
+        <button *ngIf="esEdicion" class="btn btn-success" (click)="actualizarDatos()">
+            <i class="fa-solid fa-sync"></i> Actualizar datos
+          </button>
+    </form>
+</div>

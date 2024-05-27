@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <label for="categoriaSelect" class="form-label">Filtrar por categoría:</label>
+      <select id="categoriaSelect" class="form-select" #categoriaSelect (change)="onCategoriaSeleccionada(categoriaSelect.value)">
+        <option value="">Selecciona una categoría</option>
+        <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
+      </select>
+    </div>
+    <div class="col-md-6 mb-4">
+      <label for="ciudadSelect" class="form-label">Filtrar por ciudad:</label>
+      <select id="ciudadSelect" class="form-select" #ciudadSelect (change)="onCiudadSeleccionada(ciudadSelect.value)">
+        <option value="">Selecciona una ciudad</option>
+        <option *ngFor="let ciudad of ciudades" [value]="ciudad">{{ ciudad }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <ng-container *ngIf="productos.length > 0; else noProductos">
+      <div class="col-md-4" *ngFor="let producto of productos">
+        <div class="card mb-4">
+          <img [src]="producto.productoGetDTO.imagenes[1]" alt="{{producto.productoGetDTO.nombre}}" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">{{producto.productoGetDTO.nombre}}</h5>
+            <p class="card-text">{{producto.descripcion}}</p>
+            <p class="card-text">Precio: {{producto.precio}}</p>
+            <p class="card-text">Categoría: {{producto.productoGetDTO.categorias.join(", ")}}</p>
+            <p class="card-text">Ciudad: {{producto.productoGetDTO.ciudades.join(", ")}}</p>
+          </div>
+          <div class="card-footer">
+            <a class="btn btn-primary" [routerLink]="'/detalle-producto/' + producto.codigo">Ver detalle</a>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <ng-template #noProductos>
+    <div class="col-md-6 offset-md-3">
+      <div class="alert alert-warning text-center" role="alert">
+        No se encontraron productos.
+      </div>
+    </div>
+  </ng-template>
+</div>

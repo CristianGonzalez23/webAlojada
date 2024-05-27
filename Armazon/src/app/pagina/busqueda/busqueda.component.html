@@ -1,0 +1,30 @@
+<p>Resultados de búsqueda para "{{textoBusqueda}}"</p>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3">
+    <div class="col" *ngFor="let item of filtro">
+        <div class="card shadow-sm">
+            <div class="row">
+                <div class="col-md-6 img-vertical">
+                    <img class="rounded-start" src="{{item.productoGetDTO.imagenes[0]}}" />
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <p class="card-text">{{item.productoGetDTO.nombre}}</p>
+                        <p class="card-text">{{item.productoGetDTO.categorias}}</p>
+                        <p class="card-text">$ {{item.precio}}</p>
+                        <span class="badge text-bg-primary me-2"
+                            *ngFor="let cat of item.productoGetDTO.categorias">{{cat}}</span>
+                        <hr />
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-primary"
+                                    routerLink="/detalle-producto/{{item.codigoProducto}}" role="button">Ver
+                                    detalle</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

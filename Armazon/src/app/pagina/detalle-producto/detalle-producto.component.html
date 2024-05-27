@@ -1,0 +1,108 @@
+<div *ngIf="publicacion" class="row">
+  <div class="col-md-4">
+    <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <ng-container *ngFor="let imagen of publicacion.productoGetDTO.imagenes; let i = index">
+          <div class="carousel-item" [class.active]="i === 0">
+            <img [src]="publicacion.productoGetDTO.imagenes[1]" class="d-block w-100" alt="Imagen del producto">
+          </div>
+        </ng-container>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    </div>
+    <div class="description mt-4">
+      <h4>Descripción:</h4>
+      <button (click)="agregarPublicacionFavorita()" class="btn btn-outline-danger favorite-btn">
+        <span *ngIf="isFavorite">
+          <i class="bi bi-heart-fill"></i>
+          Favorito
+        </span>
+        <span *ngIf="!isFavorite">
+          <i class="bi bi-heart"></i>
+          Agregar a favorito
+        </span>
+      </button>
+      <button *ngIf="isFavorite" (click)="eliminarPublicacionFavorita()" class="btn btn-outline-danger favorite-btn">
+        <i class="bi bi-trash"></i>
+        Eliminar de favoritos
+      </button>
+      <p>{{ publicacion.descripcion }}</p>
+    </div>
+    
+  </div>
+  <div class="col-md-8">
+    <h3>{{ publicacion.productoGetDTO.nombre }}</h3>
+    <h3><div class="rating">
+      <span *ngFor="let star of getStarsArray(publicacion.promedioEstrellas)" [class]="getStarClass(star)"></span>
+    </div></h3>
+    
+    <p><strong>Precio:</strong> {{ publicacion.precio }}</p>
+    <p><strong>Unidades:</strong> {{ publicacion.disponibilidad }}</p>
+    <p><strong>Categorías:</strong></p>
+    <ul>
+      <li *ngFor="let categoria of publicacion.productoGetDTO.categorias">{{ categoria }}</li>
+    </ul>
+    <p><strong>Ciudades:</strong></p>
+    <ul>
+      <li *ngFor="let ciudad of publicacion.productoGetDTO.ciudades">{{ ciudad }}</li>
+    </ul>
+    <!-- PARTE QUE ITERA SOBRE LA LISTA DE COMENTARIOS Y LOS RECUPERA-->
+    <div *ngFor="let comentario of publicacion.comentarioGetDTO" class="comment card mb-2">
+      <div class="card-body">
+        <div class="comment-valoracion">
+          <strong>Valoración:</strong>
+          <div class="rating">
+            <span *ngFor="let star of getStarsArray(comentario.estrellas)" [class]="getStarClass(star)"></span>
+          </div>
+        </div>
+        <p class="comment-text"><strong>Texto:</strong> {{ comentario.texto }}</p>
+        <p class="comment-details">
+          <strong>Estrellas:</strong> {{ comentario.estrellas }} |
+          <strong>Código de Usuario:</strong> {{ comentario.codigoUsuario }} |
+          <strong>Código de Publicación de Producto:</strong> {{ comentario.codigoPublicacionProducto }}
+        </p>
+      </div>
+    </div>
+
+    <!--PARTE DE ESCRIBIR COMENTARIO Y BOTONES-->
+    <div class="comment card">
+      <div class="card-body">
+        <div class="comment-valoracion">
+          <strong>Valoración:</strong>
+          <div class="rating">
+            <span
+              *ngFor="let star of [1, 2, 3, 4, 5]"
+              [ngClass]="{
+                'filled-star': star <= valoracionSeleccionada,
+                'empty-star': star > valoracionSeleccionada
+              }"
+              (click)="seleccionarEstrella(star)"
+            ></span>
+          </div>
+        </div>        
+        <p class="comment-text"><strong>Texto:</strong> Comentario...</p>
+        <textarea [(ngModel)]="comentario.texto" class="form-control" rows="3"></textarea>
+        <button (click)="enviarComentario()" class="btn btn-primary mt-3">Enviar comentario</button>
+        <span class="button-spacing"></span>
+        <button (click)="borrarComentario()" class="btn btn-primary mt-3">Borrar comentario</button>
+      </div>
+    </div>
+
+    <!-- fin cambio comentario -->
+  </div>
+</div>
+
+<button (click)="agregarCarrito()" class="btn btn-outline-primary">
+  <i class="fa-solid fa-cart-plus me-2"></i>Agregar al carrito
+</button>
+
+<button (click)="quitarCarrito()" class="btn btn-outline-primary">
+  <i class="fa-solid fa-cart-plus me-2"></i>Quitar del carrito
+</button>

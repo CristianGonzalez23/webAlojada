@@ -1,0 +1,27 @@
+<div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>CodigoCompra</th>
+          <th>CodigoPublicacion</th>
+          <th>Unidades</th>
+          <th>Precio</th>
+          <th>Total</th>
+          <th>MetodoPago</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let compra of compras">
+          <td>{{ compra.codigoCompra }}</td>
+          <td>{{ compra.codigoPublicacionProducto }}</td>
+          <td>{{ compra.unidades }}</td>
+          <td>{{ compra.precio }}</td>
+          <td>{{ compra.total }}</td>
+          <td>{{ compra.metodoPago }}</td>
+          <td>{{ compra.fecha }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

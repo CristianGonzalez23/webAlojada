@@ -1,0 +1,68 @@
+<div class="card p-5">
+    <form #f="ngForm" (ngSubmit)="registrar()">
+        <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">Nombre: </label>
+            <div class="col-sm-10">
+                <input #nombre="ngModel" class="form-control" [ngClass]="nombre.invalid &&
+    
+    (nombre.dirty || nombre.touched) ? 'is-invalid' : ''" type="text" name="nombre" [(ngModel)]="usuario.nombre"
+                    required maxlength="50" />
+
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">Email: </label>
+            <div class="col-sm-10">
+                <input #email="ngModel" class="form-control" [ngClass]="email.invalid &&
+
+(email.dirty || email.touched) ? 'is-invalid' : ''" type="email" name="email" [(ngModel)]="usuario.email" email
+                    required />
+
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">Dirección: </label>
+            <div class="col-sm-10">
+                <input #direccion="ngModel" class="form-control" [ngClass]="direccion.invalid &&
+(direccion.dirty || direccion.touched) ? 'is-invalid' : ''" type="text" name="direccion"
+                    [(ngModel)]="usuario.direccion" required />
+
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">Teléfono: </label>
+            <div class="col-sm-10">
+                <input #telefono="ngModel" class="form-control" [ngClass]="telefono.invalid &&
+(telefono.dirty || telefono.touched) ? 'is-invalid' : ''" type="text" name="telefono" [(ngModel)]="usuario.telefono"
+                    required />
+
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">Contraseña: </label>
+            <div class="col-sm-10">
+                <input #password="ngModel" class="form-control" [ngClass]="password.invalid &&
+
+(confirmacion.dirty || confirmacion.touched) || !sonIguales() ? 'is-invalid' : ''" type="password" name="password"
+                    [(ngModel)]="usuario.password" required />
+
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">Repetir contraseña: </label>
+            <div class="col-sm-10">
+                <input #confirmacion="ngModel" class="form-control" [ngClass]="confirmacion.invalid && (confirmacion.dirty || confirmacion.touched) ||
+!sonIguales() ? 'is-invalid' : ''" type="password" name="confirmaPassword" [(ngModel)]="usuario.confirmaPassword"
+                    required />
+
+            </div>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="!sonIguales()">Las contraseñas no
+            coinciden</div>
+        <button type="submit" [disabled]="f.invalid || !sonIguales()" class="btn btn-primary">
+            <i class="fa-solid fa-circle-plus me-1"></i>
+            Registrarse
+        </button>
+        <app-alerta [alerta]="alerta"></app-alerta>
+    </form>
+</div>

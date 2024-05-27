@@ -1,0 +1,25 @@
+.rating {
+    color: #FFD700; /* Color dorado */
+  }
+  
+  .rating span {
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .filled-star:before {
+    content: "\2605"; /* Carácter de estrella rellena */
+  }
+  
+  .empty-star:before {
+    content: "\2606"; /* Carácter de estrella vacía */
+  }
+
+  .button-spacing {
+    margin-left: 10px; /* Ajusta el valor según el espacio deseado */
+    margin-right: 10px; /* Ajusta el valor según el espacio deseado */
+  }
+  
+
+  
+  
